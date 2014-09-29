@@ -45,16 +45,16 @@
 
 - (Card *)drawRandomCard{
     
-    Card *card = nil;
+    Card *randomCard = nil;
     
-    if (_cards.count) {
+    if ([self.cards count]) {
         
         unsigned index = arc4random() % [self.cards count];
-        card = self.cards[index];
+        randomCard = self.cards[index];
         [self.cards removeObjectAtIndex:index];
     }
     
-    return card;
+    return randomCard;
 }
 
 @end

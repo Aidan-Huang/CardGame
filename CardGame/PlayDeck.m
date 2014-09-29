@@ -17,14 +17,14 @@
     
     if(self){
         
-        for (NSString *suit in [PlayCard validSuit]) {
-            for (int rank = 1; rank <= [PlayCard maxRank]; rank++) {
+        for (NSString *suit in [PlayCard validSuits]) {
+            for (NSUInteger rank = 1; rank <= [PlayCard maxRank]; rank++) {
                 
                 PlayCard *card = [[PlayCard alloc] init];
                 card.suit = suit;
                 card.rank = rank;
                 
-                [self addCard:card atTop:YES];
+                [self addCard:card];
             }
             
         }
