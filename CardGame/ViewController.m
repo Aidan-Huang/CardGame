@@ -7,21 +7,59 @@
 //
 
 #import "ViewController.h"
+#import "PlayDeck.h"
+#import "PlayCard.h"
 
 @interface ViewController ()
+
+@property (weak, nonatomic) IBOutlet UILabel *flapLabel;
+@property (nonatomic) int flapCount;
+@property (strong, nonatomic) PlayDeck *deck;
 
 @end
 
 @implementation ViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+
+- (PlayDeck *)deck{
+    
+    if (!_deck) {
+        _deck = [[PlayDeck alloc] init];
+    }
+    
+    return _deck;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)setFlapCount:(int)flapCount{
+    _flapCount = flapCount;
+    
+    [self.flapLabel setText:[NSString stringWithFormat:@"Flap: %d", self.flapCount]];
 }
+
+- (IBAction)touchCardButton:(UIButton *)sender {
+    
+    if (![sender.titleLabel.text isEqualToString:@" "]) {
+        
+        [sender setBackgroundImage:[UIImage imageNamed:@"cardback"]
+                          forState:UIControlStateNormal];
+        
+        [sender setTitle:@" " forState:UIControlStateNormal];
+        
+    }else{
+        
+        PlayCard *card = (PlayCard *)[self.deck drawRandomCard];
+        
+        [sender setBackgroundImage:[UIImage imageNamed:@"cardfront"]
+                          forState:UIControlStateNormal];
+        
+        [sender setTitle:card.contents forState:UIControlStateNormal];
+        
+        
+    }
+    
+    self.flapCount++;
+    
+}
+
 
 @end
